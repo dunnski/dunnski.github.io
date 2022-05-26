@@ -4,7 +4,7 @@ date: 2021-05-24 12:00:00
 category: [Malware Analysis Series, How to]
 tags: [firewalla_gold, unifi, malware, malware_analysis]
 image:
-  src: https://res.cloudinary.com/dunnski/image/upload/v1653575641/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_00_cover_image_ylsxkv.jpg
+  src: /assets/img/blog/how_to_isolate_homelab_images/2021-05-24_00_cover_image.jpg
   width: 1000   # in pixels
   height: 400   # in pixels
 ---
@@ -45,7 +45,7 @@ First and foremost, I am not affiliated with any of the devices or companies I a
 3. Access Point: [Unifi Ap-AC Lite](https://www.amazon.com/Ubiquiti-UAP-AC-LITE-802-11ac-Gigabit-Dual-Radio/dp/B01DRM6MLI/ref=sr_1_3?dchild=1&keywords=Unifi+Ap-AC+Lite&qid=1621698886&sr=8-3)
 
 What my network looks like:
-![](https://res.cloudinary.com/dunnski/image/upload/v1653575641/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_01_Network_diagram_gsuwwo.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_isolate_homelab_images/2021-05-24_01_Network_diagram.jpg){: width="700" height="400" }
 
 ## Setting up VLANs on my Firewalla Gold(router/firewall):
 
@@ -55,7 +55,7 @@ Firewalla's iPhone app makes this part very easy. In the app, select
 
 Type in the name for the VLAN, I am going with `Homelab` . Change Type to `VLAN` . Then make sure to add the `VLAN ID`.  Based off of my network diagram above, I'll select `30` .  Now make sure to check the right ethernet port on your router so that it can actually reach your internal network.  Mine uses the 3rd port on my router. After that, make sure that your IP address range and subnet mask is what you want.  To make things easier for myself I tend to make the third set of two bits the same number as my `VLAN ID` so in my case I'll change my IP address to `192.168.30.1` and I'll leave the subnet mask as is.
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653575641/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_02_creating_homelab_vlan_network_pyw5w8.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_isolate_homelab_images/2021-05-24_02_creating_homelab_vlan_network.jpg){: width="700" height="400" }
 
 Now we can click `Done` at the top right and then make sure to hit `Save` on the `Network Manager` screen so that Firewalla Gold saves all the configurations you set up.
 
@@ -65,7 +65,7 @@ Log into your Unifi Cloud Key or the VM that is hosting your Cloud Key software.
 
 Once you're logged on, click the `Gear Icon` at the bottom left of the navigation panel.  Select `Networks` and `Add New Network` . Create the name you want for your `Network` . I will continue to us `Homelab` as the name of the network.  Click the `Advanced` tab.  Change the VLAN ID to the number you set.  For me that is `30` . 
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653575641/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_03_Unifi_network_settings_screen_twwl0v.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_isolate_homelab_images/2021-05-24_03_Unifi_network_settings_screen.jpg){: width="700" height="400" }
 
 This next step is very important and depends on the setup you have.  My Firewalla Gold provides DHCP, so I will set mine to `None` .  If you have a non-Unifi router that provides DHCP to your network then you will likely need to do the same.  If you are using a Unifi Gateway like their USG line then I would refer you to their instructions to make sure nothing gets broken. 
 
@@ -73,7 +73,7 @@ Click `Add Network` . Once on the `Networks` main page, you might notice a subne
 
 For my setup, I want to have a wireless home lab network.  To set this up, I'll select the `WiFi` tab in the same settings menu.  Create the name of your wireless network.  I'm keeping the same trend as before, `Home Lab Network` (boring I know).  Create a unique password for your home lab network.  Lastly, make sure to select the newly created `Network` that we created just before this.  The network name I created is called `Homelab` .  The last thing I like to do before clicking `Add WiFi Network` is click `Advanced` → `Security` → check `Hide WiFi Name` .  I like to hide the SSID of my Home Lab network just so it doesn't show up when people are actively looking for WiFi networks to join.  
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653575640/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_04_configuring_wifi_network_on_unifi_nnej9q.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_isolate_homelab_images/2021-05-24_04_configuring_wifi_network_on_unifi.jpg){: width="700" height="400" }
 
 After hitting `Add WiFi Network` you should now see your newly created WiFi network in the list of current WiFi networks.
 
@@ -83,7 +83,7 @@ Now that we have our newly created home lab network up and running, we should cr
 
 From the app select `Rules` → `Add Rule` .  For the action, I'll select `Block` . In the `Matching` section we have two fields we need to configure.  First, we need to set a target: select `Local Network` → `All Local Networks` → `Traffic from & to All Local Networks` . Now we need to select which device this rule will apply to.  Click the Select field and select your `Homelab` network.  The schedule I will keep always and I'll add a quick note to the rule `Isolating Homelab network from all other internal networks` .  Hit `Save` and you should now see another rule in the list specifically for your home lab.
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653575640/Blog_Assets/how_to_isolate_homelab_assets/2021-05-24_05_Creating_firewall_rule_cbh5ah.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_isolate_homelab_images/2021-05-24_05_Creating_firewall_rule.jpg){: width="700" height="400" }
 
 Thats all that I need to do to create a homelab wifi network and properly isolate it from the rest of my internal networks.  Firewalla Gold makes this process extremely easy and is probably different from how other devices create VLANs and firewall rules.  If you run into trouble with your device, check out forums for assistance.  I've found Reddit extremely helpful for finding help. Especially if you join that device's specific subreddit.
 

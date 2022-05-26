@@ -4,7 +4,7 @@ date: 2021-04-29 12:00:00
 category: [Malware Analysis Series, How to]
 tags: [vmware, malware, malware_analysis, remnux, flare]
 image:
-  src: https://res.cloudinary.com/dunnski/image/upload/v1653576280/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_00_malware_analysis_blog_cover_photo_dh1oos.jpg
+  src: /assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_00_malware_analysis_blog_cover_photo.jpg
   width: 1000   # in pixels
   height: 400   # in pixels
 ---
@@ -41,7 +41,7 @@ First thing we should do is set up our isolated custom network we will be using 
 Now that you have virtualization software installed, we need to get a Win 10 developer image from Microsoft. This Win 10 image will serve as the base image.  FLARE can only be install on an already existing physical or virtual Windows machine. Using the link above, select the `MSEdge on Win10 (x64) {Some_Stable_Version}`.  Then select the VM platform you have, in this case I will select `VMware (Windows, Mac)`. The download is several GBs so depending on your download speed, it could take some time. **Please note the password for the VM:** "Passw0rd!" with a zero.
 
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653576279/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_01_select_win10_image_from_microsoft_tnd91l.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_01_select_win10_image_from_microsoft.jpg){: width="700" height="400" }
 
 ### Installing and Setting up Windows 10 Machine in VMWare Fusion:
 Lets unzip the file and store it in a location of your choice. Open up VMware's Virtual Machine Library and follow these steps:  
@@ -50,7 +50,7 @@ Lets unzip the file and store it in a location of your choice. Open up VMware's 
 2. Click `File` -> `Import` -> `Choose File` -> `MSEdge-Win10-VMWare.ovf` -> `Continue` -> `Save`.  You can change the name and location of where the VM is stored if you would like.
 3. Click `Customize Settings` after the image has been imported successfully.
 4. Navigate to `Processors & Memory`.  Confirm that the VM is allocated 2 processor cores and 4Gbs of RAM(4096MBs).
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576279/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_02_checking_processor_memory_settings_win10_jxvjte.jpg){: width="700" height="400" }
+    ![](assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_02_checking_processor_memory_settings_win10.jpg/){: width="700" height="400" }
 5. Before we power on the Windows 10 machine for the first time, we should take a snapshot.  Name it something like `Fresh Win10 Install`. Microsoft states that the image expires after 90 days so this could cause problems with your FLARE VM in the future. By taking a snapshot before you start the VM, that snapshot will not start the expiration timer until it is booted up for the first time.
 6. When you start the machine, if VMWare prompts you to upgrade, click `Upgrade`.
 7. The VM should activate itself after a few minutes but we can do it manually.  Open a command prompt and type: 
@@ -60,7 +60,7 @@ slmgr.vbs /ato
 8. VMWare should prompt you to install VMware's Virtual Tools.  Install the tools and then reboot the machine.   The VM might reboot twice, once for settings updates and another time to successfully install VMware's Virtual Tools.
 9. After the machine logs in successfully after installing VM Virtual Tools.  Take another snapshot and name it something to the effect of, `Win 10 Activated with VM Tools installed`.
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653576279/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_03_taking_snapshot_in_VMware_ktq9ie.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_03_taking_snapshot_in_VMware.jpg){: width="700" height="400" }
 
 One thing to note, snapshots are a must when working with malware.  The ability to revert back to a clean state after performing some behavior analysis on one file is very powerful and time saving.  It allows you to test other hypotheses or another file in a clean environment before infection.  It also saves time so you don't have to rebuild a whole new VM from scratch because you don't have a clean starting image.
 
@@ -70,7 +70,7 @@ VirtualBox tends to require more manual configuration to get your VMs to work pr
 Last thing that tends to be more complicated in VirtualBox is installing VB Guest Additions. I recommend following the instructions VirtualBox has on their manual page [here](https://www.virtualbox.org/manual/ch04.html) Section `4.2.1.1. Installing the Windows Guest Additions`.  Sometimes, you will get an error that you can't attach the guest additions due to no optical drive.  If thats the case, you need to use the `mount Guest Additions manually` steps.
 
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653576279/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_04_invalid_display_settings_notification_zi4a98.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_04_invalid_display_settings_notification.jpg){: width="700" height="400" }
 
 ### Install FLARE on your fresh install of WIN 10:
 Now that we have our base Win 10 machine up and running we can get FireEye's FLARE VM installed:
@@ -96,11 +96,11 @@ Now that we have our base Win 10 machine up and running we can get FireEye's FLA
     ```powershell
     ./install.ps1 -password Passw0rd!
     ```
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576280/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_05_running_powershell_installFLARE_script_fjpmzl.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_05_running_powershell_installFLARE_script.jpg){: width="700" height="400" }
 
 The rest of the installation process is fully automated. Depending upon your internet speed the entire installation may take up to one hour to finish. The VM also reboots multiple times due to the numerous software installations’ requirements. Once the installation completes, the PowerShell prompt remains open waiting for you to hit any key before exiting. After completing the installation, you will be presented with the following desktop environment:
 
-![](https://res.cloudinary.com/dunnski/image/upload/v1653576280/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_06_flare_vm_desktop_image_raazph.jpg){: width="700" height="400" }
+![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_06_flare_vm_desktop_image.jpg){: width="700" height="400" }
 
 Once the install is done, run the command to update FLARE:
     ```bash
@@ -125,7 +125,7 @@ Navigate to the REMnux page link shared above and hit `Download ->` -> `General 
     ```shell
     ifconfig -a 
     ```
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_07_running_ifconfig_in_remnux_fp2czr.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_07_running_ifconfig_in_remnux.jpg){: width="700" height="400" }
 
 9. Update our REMnux machine. This will update and upgrade all of the tools on Remnux to their latest version.  It might take a several minutes to complete:
     ```bash
@@ -151,7 +151,7 @@ We need to connect our FLARE VM to the same network so that the REMnux box can r
     - Select `use the following preferred DNS server addresses`
     - Preferred DNS Server: 10.1.1.2(Our REMnux VM)
     - Alternate DNS Server: BLANK
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_08_configuring_flare_vm_with_remnux_ip_zjvoek.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_08_configuring_flare_vm_with_remnux_ip.jpg){: width="700" height="400" }
 
 4. Click `Ok`
 
@@ -165,13 +165,13 @@ Remnux already comes with INetSim pre-install. However, we need to do some minor
     ```
 
 2. By default, INetSim only has a few services active.  However, we are going to uncomment out all the other services by removing the `#`:
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_09_unchecking_all_services_inetsim_rwrysx.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_09_unchecking_all_services_inetsim.jpg){: width="700" height="400" }
 
 3. We now need to bind REMnux's network adapter IP to INetSim.  To do this scroll down a little bit in the config file until you see `service_bind_address`. Uncomment it out and add your REMnux IP in place of the `0.0.0.0`. I would put `10.1.1.2`:
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_10_changing_default_service_bind_address_mw4sb3.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_10_changing_default_service_bind_address.jpg){: width="700" height="400" }
 
 4. Right below that you should see `dns_default_ip`.  Uncomment that out and place your REMnux IP there as well.  I would put `10.1.1.2`:
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_11_changing_default_dns_ip_aoijwm.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_11_changing_default_dns_ip.jpg){: width="700" height="400" }
 
 5. Ubuntu has a system-resolved system service which provides network name resolution to local applications. This conflicts with INetSim so we need to disable the service. Open up a terminal and type these commands:
     ```bash
@@ -180,15 +180,15 @@ Remnux already comes with INetSim pre-install. However, we need to do some minor
     sudo systemctl stop systemd-resolved
     ```
 
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576281/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_12_disabling_system-resolve_ldjwep.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_12_disabling_system-resolve.jpg){: width="700" height="400" }
 
 6. Now we can start INetSim:
     ```bash
     inetsim
     ```
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576282/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_13_starting_inetsim_s82mzc.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_13_starting_inetsim.jpg){: width="700" height="400" }
 7. Start up your FLARE vm and type `www.baddomain.com`. Your browser should show this:
-    ![](https://res.cloudinary.com/dunnski/image/upload/v1653576282/Blog_Assets/How_to_setup_homelab_assets/2021-04-29_14_testing_connection_from_flare_to_remnux_with_inetsim_l91fjw.jpg){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_14_testing_connection_from_flare_to_remnux_with_inetsim.jpg){: width="700" height="400" }
 
 ## Conclusion
 There are infinite possibilities when it comes to setting up a malware analysis lab.  There are tons of tools out there to aid you in your analysis and FLARE is a great VM to start out with because it has a lot of the most popular tools pre-installed.  My hope is that I was able to help you get started in setting up a lab to being looking at malicious files.  I definitely plan on writing up more articles where I will dive into specific malicious files and popular techniques used to analyze malware.  If you have any comments, questions, or just want to chat, you can find me on [Twitter](https://twitter.com/jt_dunnski).
