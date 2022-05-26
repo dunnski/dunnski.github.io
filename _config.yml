@@ -46,9 +46,9 @@ social:
     # The first element serves as the copyright owner's link
     - https://twitter.com/jt_dunnski     # change to your twitter homepage
     - https://github.com/dunnski       # change to your github homepage
+    - https://www.linkedin.com/in/josh-dunn12
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    - https://www.linkedin.com/in/josh-dunn12
 
 google_site_verification:               # fill in to your verification string
 
