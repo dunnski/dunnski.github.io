@@ -50,7 +50,7 @@ Lets unzip the file and store it in a location of your choice. Open up VMware's 
 2. Click `File` -> `Import` -> `Choose File` -> `MSEdge-Win10-VMWare.ovf` -> `Continue` -> `Save`.  You can change the name and location of where the VM is stored if you would like.
 3. Click `Customize Settings` after the image has been imported successfully.
 4. Navigate to `Processors & Memory`.  Confirm that the VM is allocated 2 processor cores and 4Gbs of RAM(4096MBs).
-    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_02_checking_processor_memory_settings_win10.jpg/){: width="700" height="400" }
+    ![](/assets/img/blog/how_to_setup_homelab_blog_images/2021-04-29_02_checking_processor_memory_settings_win10.jpg){: width="700" height="400" }
 5. Before we power on the Windows 10 machine for the first time, we should take a snapshot.  Name it something like `Fresh Win10 Install`. Microsoft states that the image expires after 90 days so this could cause problems with your FLARE VM in the future. By taking a snapshot before you start the VM, that snapshot will not start the expiration timer until it is booted up for the first time.
 6. When you start the machine, if VMWare prompts you to upgrade, click `Upgrade`.
 7. The VM should activate itself after a few minutes but we can do it manually.  Open a command prompt and type: 
