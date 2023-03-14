@@ -8,7 +8,7 @@ tags: [yara, malware, campaign]
 ## Details:
 Below is a yara rule that I created when looking at a recent Qbot campaign.  Details on various aspects of the yara rule have been added as comments to the rule itself.  As of the date of this post, the rule is high fidelity based on testing done in VirusTotal and with samples I have collected personally.
 
-```json
+```
 import "pe"
 
 rule Qakbot_BB17_DLLs {
