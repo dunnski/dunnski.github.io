@@ -3,7 +3,6 @@ title: Qbot BB17 YARA rule
 date: 2023-03-14 12:00:00
 category: [YARA, Malware]
 tags: [YARA, malware, campaign]
-"img_path: /assets/img/blog/log4shell_what_is_it_images"
 ---
 
 ## YARA:
