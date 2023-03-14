@@ -1,13 +1,14 @@
 ---
 title: Qbot BB17 YARA rule
 date: 2023-03-14 12:00:00
-category: [YARA, Malware]
-tags: [YARA, malware, campaign]
+category: [Yara Rules, Malware Analysis]
+tags: [yara, malware, campaign]
 ---
 
-## YARA:
+## Details:
+Below is a yara rule that I created when looking at a recent Qbot campaign.  Details on various aspects of the yara rule have been added as comments to the rule itself.  As of the date of this post, the rule is high fidelity based on testing done in VirusTotal and with samples I have collected personally.
 
-```yara
+```python
 import "pe"
 
 rule Qakbot_BB17_DLLs {
