@@ -1,7 +1,7 @@
 ---
 title: Qbot BB17 YARA rule
 date: 2023-03-14 12:00:00
-category: [Yara Rules, Malware Analysis]
+category: [Yara Rules, Malware, Qbot]
 tags: [yara, malware, campaign]
 ---
 
